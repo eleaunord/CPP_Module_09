@@ -32,7 +32,7 @@ void couplesCreation(std::list<std::pair<int, int > > *myList, char **argv, int 
 // DEQUE
 void createMainChainDeq(std::deque<int> *main_chain, std::deque<std::pair<int, int > > myDeque);
 void binarySearchInsertionDeq(std::deque<int> *main_chain, std::deque<int>::iterator end, int val);
-void insertAlgo2(std::deque<std::pair<int, int > > myDeque, std::deque<int> *main_chain, int extraValue);
+void insertAlgoDeq(std::deque<std::pair<int, int > > myDeque, std::deque<int> *main_chain, int extraValue);
 void sortInsideCoupleDeq(std::deque<std::pair<int, int > > *myDeque);
 void mergeSortDeq(std::deque<std::pair<int, int > >::iterator start, std::deque<std::pair<int, int > >::iterator end, size_t size);
 void couplesCreationDeq(std::deque<std::pair<int, int > > *myDeque, char **argv, int *additional_value);

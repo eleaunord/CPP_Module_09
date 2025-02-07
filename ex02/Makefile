@@ -2,7 +2,7 @@ NAME = PmergeMe
 COMPILER = c++
 CFLAGS = -std=c++98 -Wall -Wextra -Werror
 
-SRCS = main.cpp PmergeMe.cpp couplesSort.cpp printing.cpp
+SRCS = main.cpp couplesSort.cpp PmergeMe.cpp PmergeMe2.cpp printing.cpp 
 
 OBJS = $(SRCS:.cpp=.o)
 

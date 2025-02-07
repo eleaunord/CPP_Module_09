@@ -1,7 +1,7 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange(){}
-// je comprends pas l'interet d'ouvrir et de ferme plusieurs fois; il y a une erreur non ?
+
 // ouvre data.csv et le fichier d'entrée
 BitcoinExchange::BitcoinExchange(const char *filename) : _filename(filename)
 {
@@ -11,7 +11,7 @@ BitcoinExchange::BitcoinExchange(const char *filename) : _filename(filename)
 		throw InvalidDatabaseException();
 	}
 
-	fillDatabase();
+	readDatabase();
 
 	_file.open(_filename.c_str());
 	if (!_file.is_open())
@@ -168,7 +168,7 @@ void BitcoinExchange::btc(const std::string &line)
 		throw TooLargeNumberException();
 
 	std::string closestDate = findClosestDate(dateStr);
-	std::cout << closestDate << " => " << value << " = " << value * _data.at(closestDate) << std::endl;
+	std::cout << dateStr << " => " << value << " = " << value * _data.at(closestDate) << std::endl;
 }
 
 // read each line of the database file and calls fillDate to parse and store data

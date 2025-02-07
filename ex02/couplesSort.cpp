@@ -95,28 +95,9 @@ void couplesCreation(std::list<std::pair<int, int > > *myList, char **argv, int 
 	mergeSort(myList->begin(), myList->end(), 0);
 }
 
-/* Deque functions */
 
-void couplesCreationDeq(std::deque<std::pair<int, int > > *myDeque, char **argv, int *additional_value)
-{
-	int i = 1;
-
-	while (argv[i])
-	{
-		if (argv[i] && argv[i + 1])
-		{
-			std::pair<int, int> pair_temp(std::atoi(argv[i]), std::atoi(argv[i + 1]));
-			myDeque->push_back(pair_temp);
-			i += 2;
-		}
-		else
-		{
-			*additional_value = std::atoi(argv[i]);
-			i++;
-		}
-	}
-}
-
+// Before: {(8,5), (7,3)}
+// After: {(5,8), (3,7)}
 void sortInsideCoupleDeq(std::deque<std::pair<int, int > > *myDeque)
 {
 	for (std::deque<std::pair<int, int > >::iterator it = myDeque->begin(); it != myDeque->end(); ++it)
@@ -130,8 +111,10 @@ void sortInsideCoupleDeq(std::deque<std::pair<int, int > > *myDeque)
 	}
 }
 
+// Do merge sort with recursive approach splitting the list in half each time and merging them back together
 void mergeSortDeq(std::deque<std::pair<int, int > >::iterator start, std::deque<std::pair<int, int > >::iterator end, size_t size)
 {
+	// case when it's already sorted
 	if (size == 0 && start != end)
 		size = std::distance(start, end);
 	if (size <= 1)
@@ -139,9 +122,37 @@ void mergeSortDeq(std::deque<std::pair<int, int > >::iterator start, std::deque<
 
 	size_t firstHalf = size / 2;
 	size_t secondHalf = size - firstHalf;
-	std::deque<std::pair<int, int > >::iterator center = start + firstHalf;
+	std::deque<std::pair<int, int > >::iterator center = start;
+	// Move the iterator to the center of the list
+	std::advance(center, firstHalf);
 
-	mergeSortDeq(start, center, firstHalf);
-	mergeSortDeq(center, end, secondHalf);
-	std::inplace_merge(start, center, end, &compare);
+	mergeSortDeq(start, center, firstHalf); // start to center
+	mergeSortDeq(center, end, secondHalf);	 // center to end
+
+	std::inplace_merge(start, center, end, &compare); // merges the two sorted halves back together
+													  // we need a comparaison function that orders elements based on their second values
 }
+
+void couplesCreationDeq(std::deque<std::pair<int, int > > *myDeque, char **argv, int *single)
+{
+	// std::pair<int, int> == template that holds 2 values of the specified types
+	int i = 1;
+
+	while (argv[i])
+	{
+		if (argv[i] && argv[i + 1])
+		{
+			std::pair<int, int> myCouple(std::atoi(argv[i]), std::atoi(argv[i + 1]));
+			myDeque->push_back(myCouple);
+			i += 2;
+		}
+		else
+		{
+			*single = std::atoi(argv[i]);
+			i++;
+		}
+	}
+	sortInsideCoupleDeq(myDeque);
+	mergeSortDeq(myDeque->begin(), myDeque->end(), 0);
+}
+

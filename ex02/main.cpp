@@ -1,5 +1,8 @@
 #include "PmergeMe.hpp"
-// 2.5e-05 = 0.000025 seconds (25 microseconds)
+#include <iostream>
+#include <ctime>
+#include <list>
+#include <deque>
 
 int main(int argc, char **argv)
 {
@@ -11,6 +14,9 @@ int main(int argc, char **argv)
 
 	try
 	{
+		
+		int numElements = argc - 1;  
+
 		// LIST
 		printBefore(argv);
 
@@ -26,13 +32,15 @@ int main(int argc, char **argv)
 		insertAlgo(myList, &main_chain, single); 
 
 		clock_t end = clock(); 
+		//std::cout << std::endl;
 		printAfter(main_chain);
 
-		std::cout << "Time to process with std::list: " << static_cast<double>(end - start) / CLOCKS_PER_SEC << " s\n";
+		double elapsedList = (static_cast<double>(end - start) * 1000000.0) / CLOCKS_PER_SEC;
+		std::cout << "Time to process a range of " << numElements << " elements with std::list: " << elapsedList << " us\n";
 
 		// DEQUE
+		//std::cout << std::endl;
 		//printBefore(argv);
-
 		clock_t startDeq = clock(); 
 
 		std::deque<std::pair<int, int > > myDeque;
@@ -42,12 +50,14 @@ int main(int argc, char **argv)
 		std::deque<int> main_chain_deq;
 		createMainChainDeq(&main_chain_deq, myDeque); 
 
-		insertAlgo2(myDeque, &main_chain_deq, additional_value);
+		insertAlgoDeq(myDeque, &main_chain_deq, additional_value);
 
 		clock_t endDeq = clock();
-
+		//std::cout << std::endl;
 		//printAfterDeq(main_chain_deq);
-		std::cout << "Time to process with std::deque: " << static_cast<double>(endDeq - startDeq) / CLOCKS_PER_SEC << " s\n";
+
+		double elapsedDeque = (static_cast<double>(endDeq - startDeq) * 1000000.0) / CLOCKS_PER_SEC;
+		std::cout << "Time to process a range of " << numElements << " elements with std::deque: " << elapsedDeque << " us\n";
 	}
 	catch (const std::exception &e)
 	{
