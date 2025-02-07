@@ -2,10 +2,9 @@
 #include <iostream>
 #include <sstream>
 #include <stack>
-#include <climits>  // Pour LONG_MAX et LONG_MIN
-#include <cstdlib>  // Pour strtol
+#include <climits>  
+#include <cstdlib> 
 
-// Définitions de INT_MAX et INT_MIN si non définis (C++98 peut les omettre)
 #ifndef INT_MAX
     #define INT_MAX 2147483647
 #endif
@@ -13,7 +12,6 @@
     #define INT_MIN (-2147483647 - 1)
 #endif
 
-// Vérification des opérations arithmétiques avec protection contre les dépassements
 static long calculate(long upper, long lower, char operation)
 {
     if (operation == '+')
@@ -38,14 +36,14 @@ static long calculate(long upper, long lower, char operation)
     {
         if (lower == 0)
             throw std::runtime_error("Error: Division by zero");
-        if (upper == LONG_MIN && lower == -1) // Edge case pour éviter l'overflow
+        if (upper == LONG_MIN && lower == -1)
             throw std::overflow_error("Error: Overflow in division");
         return upper / lower;
     }
     throw std::runtime_error("Error: Invalid operator");
 }
 
-// Traiter chaque token dans l'expression RPN
+
 static void processToken(std::stack<long> &stack, const std::string &token)
 {
     if (token.length() != 1 && !isdigit(token[0]) && token[0] != '-')
@@ -54,8 +52,8 @@ static void processToken(std::stack<long> &stack, const std::string &token)
     if (isdigit(token[0]) || (token.length() > 1 && token[0] == '-'))
     {
         char *end;
-        long num = std::strtol(token.c_str(), &end, 10); // strtol est compatible C++98
-        if (*end != '\0') // Vérifie que toute la chaîne a été convertie correctement
+        long num = std::strtol(token.c_str(), &end, 10); 
+        if (*end != '\0')
             throw std::runtime_error("Error: Invalid number format");
         stack.push(num);
     }
@@ -75,7 +73,7 @@ static void processToken(std::stack<long> &stack, const std::string &token)
     }
 }
 
-// Analyser et évaluer l'expression RPN
+
 int RPN(const std::string &equation)
 {
     std::stack<long> stack;
