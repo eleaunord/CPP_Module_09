@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 		int numElements = argc - 1;  
 
 		// LIST
-		printBefore(argv);
+		//printBefore(argv);
 
 		clock_t start = clock(); 
 
@@ -33,14 +33,14 @@ int main(int argc, char **argv)
 
 		clock_t end = clock(); 
 		//std::cout << std::endl;
-		printAfter(main_chain);
+		//printAfter(main_chain);
 
 		double elapsedList = (static_cast<double>(end - start) * 1000000.0) / CLOCKS_PER_SEC;
 		std::cout << "Time to process a range of " << numElements << " elements with std::list: " << elapsedList << " us\n";
 
 		// DEQUE
 		//std::cout << std::endl;
-		//printBefore(argv);
+		printBefore(argv);
 		clock_t startDeq = clock(); 
 
 		std::deque<std::pair<int, int > > myDeque;
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
 		clock_t endDeq = clock();
 		//std::cout << std::endl;
-		//printAfterDeq(main_chain_deq);
+		printAfterDeq(main_chain_deq);
 
 		double elapsedDeque = (static_cast<double>(endDeq - startDeq) * 1000000.0) / CLOCKS_PER_SEC;
 		std::cout << "Time to process a range of " << numElements << " elements with std::deque: " << elapsedDeque << " us\n";
