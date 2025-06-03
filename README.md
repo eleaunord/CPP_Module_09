@@ -2,7 +2,7 @@
 
 This module is the final part of the C++ piscine at 42, focusing on the **Standard Template Library (STL)** and efficient use of containers. Each exercise challenges you to solve real-world problems using different STL structures, emphasizing performance, design, and C++ best practices.
 
-## What I Learned
+## 💡What I Learned
 
 * Practical use of STL containers like `map`, `stack`, `deque`, `vector`, etc.
 * Designing programs using C++98 standard
@@ -34,7 +34,7 @@ This module is the final part of the C++ piscine at 42, focusing on the **Standa
 
 ---
 
-## ➕ Exercise 01 – Reverse Polish Notation
+## Exercise 01 – Reverse Polish Notation
 
 **Goal:** Build a calculator that evaluates expressions in Reverse Polish Notation (RPN).
 
